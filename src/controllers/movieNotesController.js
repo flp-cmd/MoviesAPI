@@ -1,7 +1,5 @@
-const knex = require("../database/knex")
+const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
-
-const sqliteConnection = require("../database/sqlite");
 
 class MovieNotesController {
   async create(request, response) {
@@ -12,28 +10,40 @@ class MovieNotesController {
       title,
       description,
       rating,
-      user_id
-    })
+      user_id,
+    });
 
-    const tagsInsert = tags.map(name => {
+    const tagsInsert = tags.map((name) => {
       return {
         note_id,
         name,
-        user_id
-      }
-    })
+        user_id,
+      };
+    });
 
-    await knex("movieTags").insert(tagsInsert)
+    await knex("movieTags").insert(tagsInsert);
 
     return response.status(201).json({});
   }
 
   async delete(request, response) {
-    const { id } = request.params
+    const { id } = request.params;
 
-    await knex("movieNotes").where({ id }).delete()
+    await knex("movieNotes").where({ id }).delete();
 
-    return response.json()
+    return response.json();
+  }
+
+  async show(request, response) {
+    const { id } = request.params;
+
+    const movieNote = await knex("movieNotes").where({ id }).first();
+    const tags = await knex("movieTags").where({ note_id: id });
+
+    return response.json({
+      ...movieNote,
+      tags,
+    });
   }
 }
 
