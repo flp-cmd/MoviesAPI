@@ -1,0 +1,24 @@
+{
+  "name": "nodeapplication",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
+    "migrate": "knex migrate:latest"
+  },
+  "keywords": [],
+  "author": "Felipe Martinez",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "knex": "^3.1.0",
+    "node": "^20.14.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
